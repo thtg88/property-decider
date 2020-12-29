@@ -40,7 +40,7 @@
     },
     "extra": {
         "hooks": {
-            "pre-commit": "vendor/bin/php-cs-fixer fix --using-cache=no --diff --dry-run && vendor/bin/tlint lint resources/views"
+            "pre-commit": []
         },
         "laravel": {
             "dont-discover": []
