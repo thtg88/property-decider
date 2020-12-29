@@ -17,8 +17,11 @@ class CreatePropertiesTable extends Migration
             $table->id();
             $table->foreignId('user_id')->index();
             $table->foreignId('status_id')->index();
-            $table->string('url', 2000)->index();
             $table->unsignedBigInteger('price')->nullable();
+            $table->string('url', 2000)->index();
+            $table->string('broadband_speed')->nullable();
+            $table->string('title')->nullable();
+            $table->longText('description')->nullable();
             $table->timestamps();
         });
     }

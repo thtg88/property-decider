@@ -10,8 +10,11 @@ class Property extends Model
      * @var array
      */
     protected $fillable = [
+        'broadband_speed',
+        'description',
         'price',
         'status_id',
+        'title',
         'url',
         'user_id',
     ];
