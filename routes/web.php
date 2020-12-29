@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\PropertyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -63,4 +64,17 @@ Route::group(['middleware' => ['auth']], static function () {
         ->name('logout');
 
     Route::view('/dashboard', 'dashboard')->name('dashboard');
+
+    Route::group(['middleware' => ['verified']], static function () {
+
+        // Property Routes...
+        Route::group(
+            ['as' => 'properties.', 'prefix' => 'properties'],
+            static function () {
+                Route::get('{id}', [PropertyController::class, 'show'])->name('show');
+                Route::delete('{id}', [PropertyController::class, 'destroy'])->name('destroy');
+                Route::post('/', [PropertyController::class, 'store'])->name('store');
+            }
+        );
+    });
 });

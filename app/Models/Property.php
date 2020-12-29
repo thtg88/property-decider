@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 /**
  * @property int $id
  * @property string $broadband_speed
@@ -39,4 +41,9 @@ class Property extends Model
         'status_id' => 'integer',
         'user_id' => 'integer',
     ];
+
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(Status::class);
+    }
 }

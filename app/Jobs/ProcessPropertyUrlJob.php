@@ -35,18 +35,18 @@ class ProcessPropertyUrlJob implements ShouldQueue
             return;
         }
 
-        $this->property->update(['status_id' => config('app.statuses.processing')]);
+        $this->property->update(['status_id' => config('app.statuses.processing_id')]);
 
         // fetch URL
         try {
             $response = Http::timeout(30)->get($this->url);
         } catch (ConnectionException $e) {
-            $this->property->update(['status_id' => config('app.statuses.failed')]);
+            $this->property->update(['status_id' => config('app.statuses.failed_id')]);
             return;
         }
 
         if ($response->failed()) {
-            $this->property->update(['status_id' => config('app.statuses.failed')]);
+            $this->property->update(['status_id' => config('app.statuses.failed_id')]);
             return;
         }
 
@@ -56,12 +56,12 @@ class ProcessPropertyUrlJob implements ShouldQueue
 
                 $action();
 
-                $this->property->update(['status_id' => config('app.statuses.completed')]);
+                $this->property->update(['status_id' => config('app.statuses.completed_id')]);
 
                 return;
             }
         }
 
-        $this->property->update(['status_id' => config('app.statuses.failed')]);
+        $this->property->update(['status_id' => config('app.statuses.failed_id')]);
     }
 }
