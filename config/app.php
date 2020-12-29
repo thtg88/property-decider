@@ -229,4 +229,21 @@ return [
 
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Property Statuses
+    |--------------------------------------------------------------------------
+    |
+    | These variables keep track of the property statuses,
+    | for usage across the app.
+    |
+    */
+
+    'statuses' => [
+        'completed_id' => (int) env('PROPERTY_STATUS_COMPLETED_ID', 3),
+        'failed_id' => (int) env('PROPERTY_STATUS_FAILED_ID', 4),
+        'processing_id' => (int) env('PROPERTY_STATUS_PROCESSING_ID', 2),
+        'queued_id' => (int) env('PROPERTY_STATUS_QUEUED_ID', 1),
+    ],
+
 ];
