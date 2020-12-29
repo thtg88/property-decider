@@ -2,8 +2,8 @@
 
 namespace App\Jobs;
 
+use App\Actions\ProcessProperty\Utils;
 use App\Models\Property;
-use DOMDocument;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -17,24 +17,10 @@ class ProcessPropertyUrlJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /** @var \App\Models\Property */
-    protected $property;
-
-    /** @var string */
-    protected $url;
-
-    /**
-     * Create a new job instance.
-     *
-     * @param \App\Models\Property $property
-     * @param string $url
-     * @return void
-     */
-    public function __construct(Property $property, string $url)
-    {
-        $this->property = $property;
-        $this->url = $url;
-    }
+    public function __construct(
+        protected Property $property,
+        protected string $url,
+    ) {}
 
     /**
      * Execute the job.
@@ -64,21 +50,18 @@ class ProcessPropertyUrlJob implements ShouldQueue
             return;
         }
 
-        $body = $response->body();
+        foreach (Utils::PROVIDER_ACTIONS as $action_clasname) {
+            if ($action_clasname::respondsTo($this->url)) {
+                $action = new $action_clasname($this->property, $response->body());
 
-        $document = DOMDocument::loadHTML($body);
+                $action();
 
-        // ui-pricing__main-price
+                $this->property->update(['status_id' => config('app.statuses.completed')]);
 
-        // TODO: process price
-        $this->property->update(['price' => -1]);
+                return;
+            }
+        }
 
-        // TODO: process amenities (with firstOrCreate)
-        // dp-features-list__item
-
-        // dp-description__text
-        // dp-broadband-speed__text
-
-        $this->property->update(['status_id' => config('app.statuses.completed')]);
+        $this->property->update(['status_id' => config('app.statuses.failed')]);
     }
 }
