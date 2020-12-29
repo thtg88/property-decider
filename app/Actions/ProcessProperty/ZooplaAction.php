@@ -5,6 +5,7 @@ namespace App\Actions\ProcessProperty;
 use App\Models\Amenity;
 use App\Models\Property;
 use App\Models\PropertyAmenity;
+use Illuminate\Support\Str;
 use Symfony\Component\DomCrawler\Crawler;
 
 class ZooplaAction extends ProviderAction implements RespondsToProviderUrlInterface
@@ -54,7 +55,7 @@ class ZooplaAction extends ProviderAction implements RespondsToProviderUrlInterf
         }
 
         return $amenities_crawler->each(function (Crawler $node) {
-            return $node->text();
+            return Str::limit($node->text(), 255);
         });
     }
 
@@ -67,7 +68,7 @@ class ZooplaAction extends ProviderAction implements RespondsToProviderUrlInterf
             return null;
         }
 
-        return $broadband_speed_crawler->first()->text();
+        return Str::limit($broadband_speed_crawler->first()->text(), 255);
     }
 
     protected function processDescription(): ?string
@@ -105,6 +106,6 @@ class ZooplaAction extends ProviderAction implements RespondsToProviderUrlInterf
             return null;
         }
 
-        return $title_crawler->first()->text();
+        return Str::limit($title_crawler->first()->text(), 255);
     }
 }
