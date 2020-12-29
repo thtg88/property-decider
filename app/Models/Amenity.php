@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+/**
+ * @property int $id
+ * @property string $name
+ */
 class Amenity extends Model
 {
     /**

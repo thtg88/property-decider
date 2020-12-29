@@ -2,6 +2,16 @@
 
 namespace App\Models;
 
+/**
+ * @property int $id
+ * @property string $broadband_speed
+ * @property string $description
+ * @property int $price
+ * @property int $status_id
+ * @property string $title
+ * @property string $url
+ * @property int $user_id
+ */
 class Property extends Model
 {
     /**
