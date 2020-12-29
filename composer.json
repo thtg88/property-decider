@@ -14,7 +14,9 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "sentry/sentry-laravel": "^2.3"
+        "sentry/sentry-laravel": "^2.3",
+        "symfony/css-selector": "^5.2",
+        "symfony/dom-crawler": "^5.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
