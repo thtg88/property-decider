@@ -41,12 +41,19 @@ class ProcessPropertyUrlJob implements ShouldQueue
         try {
             $response = Http::timeout(30)->get($this->url);
         } catch (ConnectionException $e) {
-            $this->property->update(['status_id' => config('app.statuses.failed_id')]);
+            $this->property->update([
+                'description' => $e->getMessage(),
+                'status_id' => config('app.statuses.failed_id'),
+            ]);
             return;
         }
 
         if ($response->failed()) {
-            $this->property->update(['status_id' => config('app.statuses.failed_id')]);
+            $this->property->update([
+                'description' => 'Could not fetch the listing. The page responded with a status '.
+                    $response->status(),
+                'status_id' => config('app.statuses.failed_id'),
+            ]);
             return;
         }
 
@@ -62,6 +69,9 @@ class ProcessPropertyUrlJob implements ShouldQueue
             }
         }
 
-        $this->property->update(['status_id' => config('app.statuses.failed_id')]);
+        $this->property->update([
+            'description' => 'The URL provided is not supported.',
+            'status_id' => config('app.statuses.failed_id'),
+        ]);
     }
 }
