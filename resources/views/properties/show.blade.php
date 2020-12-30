@@ -33,6 +33,10 @@
             <strong>Description</strong>:
             {{ $model->description }}
         </p>
+        <p class="mt-4 text-gray-500">
+            Added by {{ $model->user->name }}
+            {{ $model->created_at->diffForHumans() }}
+        </p>
     </x-card>
 
     @if (
