@@ -53,9 +53,7 @@
                     </x-link>
                 @endif
 
-                <x-button class="ml-3">
-                    {{ __('Login') }}
-                </x-button>
+                <x-button class="ml-3">{{ __('Login') }}</x-button>
             </div>
         </form>
     </x-auth-card>
