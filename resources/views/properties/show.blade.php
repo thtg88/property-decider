@@ -25,6 +25,8 @@
     </x-slot>
 
     <x-card>
-        Status: {{ $model->status->name }}
+        @if ($model->status_id !== config('app.statuses.completed_id'))
+            <p><strong>Status</strong>: {{ $model->status->name }}</p>
+        @endif
     </x-card>
 </x-app-layout>
