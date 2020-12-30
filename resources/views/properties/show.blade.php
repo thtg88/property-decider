@@ -17,8 +17,8 @@
             <form action="{{ route('properties.destroy', $model) }}" method="post">
                 @csrf
                 @method('delete')
-                <x-buttons.danger-button type="submit" data-confirm="Are you sure you want to remove this app?">
-                    Remove Property
+                <x-buttons.danger-button type="submit" data-confirm="Are you sure you want to remove this property?">
+                    Remove
                 </x-buttons.danger-button>
             </form>
         </div>
