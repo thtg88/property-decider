@@ -29,10 +29,9 @@
         @if ($model->status_id !== config('app.statuses.completed_id'))
             <p><strong>Status</strong>: {{ $model->status->name }}</p>
         @endif
-        <p class="mt-2">
-            <strong>Description</strong>:
-            {{ $model->description }}
-        </p>
+        <div class="mt-2">
+            {!! strip_tags($model->description, '<br><strong>') !!}
+        </div>
         <div class="mt-4 grid grid-cols-1 divide-y divide-gray-300">
             @foreach ($model->property_amenities as $property_amenity)
                 <div class="py-2">

@@ -92,7 +92,7 @@ class ZooplaAction extends ProviderAction implements RespondsToProviderUrlInterf
             return null;
         }
 
-        return $description_crawler->first()->text();
+        return strip_tags($description_crawler->first()->html(), '<br><strong>');
     }
 
     protected function processPrice(): ?int
