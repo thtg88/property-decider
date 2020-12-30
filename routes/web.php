@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\PropertyPreferenceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -66,11 +67,16 @@ Route::group(['middleware' => ['auth']], static function () {
     Route::view('/dashboard', 'dashboard')->name('dashboard');
 
     Route::group(['middleware' => ['verified']], static function () {
+        // Property Preference Routes...
+        Route::delete('property-preferences/{id}', [PropertyPreferenceController::class, 'destroy'])
+            ->name('property-preferences.destroy');
 
         // Property Routes...
         Route::group(
             ['as' => 'properties.', 'prefix' => 'properties'],
             static function () {
+                Route::post('{id}/dislike', [PropertyController::class, 'dislike'])->name('dislike');
+                Route::post('{id}/like', [PropertyController::class, 'like'])->name('like');
                 Route::post('{id}/reprocess', [PropertyController::class, 'reprocess'])->name('reprocess');
                 Route::get('{id}', [PropertyController::class, 'show'])->name('show');
                 Route::delete('{id}', [PropertyController::class, 'destroy'])->name('destroy');

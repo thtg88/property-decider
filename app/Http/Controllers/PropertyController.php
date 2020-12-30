@@ -4,10 +4,53 @@ namespace App\Http\Controllers;
 
 use App\Jobs\ProcessPropertyUrlJob;
 use App\Models\Property;
+use App\Models\PropertyPreference;
 use Illuminate\Http\Request;
 
 class PropertyController extends Controller
 {
+    /**
+     * Dislike the specified resource's details.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function dislike(Request $request, $id)
+    {
+        $model = Property::findOrFail($id);
+
+        $user = $request->user();
+
+        PropertyPreference::firstOrCreate([
+            'property_id' => $model->id,
+            'user_id' => $user->id,
+        ], ['is_liked' => false]);
+
+        return back();
+    }
+
+    /**
+     * Like the specified resource's details.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function like(Request $request, $id)
+    {
+        $model = Property::findOrFail($id);
+
+        $user = $request->user();
+
+        PropertyPreference::firstOrCreate([
+            'property_id' => $model->id,
+            'user_id' => $user->id,
+        ], ['is_liked' => true]);
+
+        return back();
+    }
+
     /**
      * Reprocess the specified resource's details.
      *
@@ -52,13 +95,22 @@ class PropertyController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param \Illuminate\Http\Request $request
      * @param int $id
      * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        $model = Property::findOrFail($id)->load(['property_preferences.user']);
+
+        $user_preference = $model->property_preferences
+            ->where('property_id', $model->id)
+            ->where('user_id', $request->user()->id)
+            ->first();
+
         return view('properties.show')
-            ->with('model', Property::findOrFail($id));
+            ->with('model', $model)
+            ->with('user_preference', $user_preference);
     }
 
     /**

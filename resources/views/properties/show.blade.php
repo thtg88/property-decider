@@ -33,4 +33,41 @@
             {{ $model->description }}
         </p>
     </x-card>
+
+    @if ($user_preference !== null)
+        <x-card>
+            <p class="mt-2">
+                You have already {{ $user_preference->is_liked === false ? 'dis' : '' }}liked this property.
+            </p>
+
+            <form method="POST" action="{{ route('property-preferences.destroy', $user_preference) }}">
+                @csrf
+                @method('delete')
+
+                <div class="flex items-center justify-start mt-4">
+                    <x-button class="ml-3">
+                        {{ __('I\'ve change my mind') }}
+                    </x-button>
+                </div>
+            </form>
+        </x-card>
+    @else
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <form action="{{ route('properties.like', $model) }}" method="post" class="inline">
+                    @csrf
+                    <button type="submit" title="Like this property" class="w-5/12">
+                        <x-icons.check />
+                    </button>
+                </form>
+
+                <form action="{{ route('properties.dislike', $model) }}" method="post" class="ml-6 inline">
+                    @csrf
+                    <button type="submit" title="Dislike this property" class="w-5/12">
+                        <x-icons.times />
+                    </button>
+                </form>
+            </div>
+        </div>
+    @endif
 </x-app-layout>
