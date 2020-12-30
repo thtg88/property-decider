@@ -25,6 +25,7 @@
     </x-slot>
 
     <x-card>
+        <x-card-title>&pound;{{ number_format($model->price) }}</x-card-title>
         @if ($model->status_id !== config('app.statuses.completed_id'))
             <p><strong>Status</strong>: {{ $model->status->name }}</p>
         @endif
