@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PropertyPreferenceController;
 use App\Http\Controllers\UserGroupController;
@@ -71,6 +72,10 @@ Route::group(['middleware' => ['auth']], static function () {
         ->name('logout');
 
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
+
+    Route::put('me', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('me/change-password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
+    Route::view('me', 'profile.edit')->name('profile.edit');
 
     Route::group(['middleware' => ['verified']], static function () {
         // Property Preference Routes...
