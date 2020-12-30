@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 class PropertyAmenity extends Model
 {
     /**
@@ -23,4 +25,11 @@ class PropertyAmenity extends Model
         'amenity_id' => 'integer',
         'property_id' => 'integer',
     ];
+
+    // RELATIONSHIPS
+
+    public function amenity(): BelongsTo
+    {
+        return $this->belongsTo(Amenity::class);
+    }
 }

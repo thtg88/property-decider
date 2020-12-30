@@ -56,6 +56,11 @@ class Property extends Model
 
     // RELATIONSHIPS
 
+    public function property_amenities(): HasMany
+    {
+        return $this->hasMany(PropertyAmenity::class);
+    }
+
     public function property_preferences(): HasMany
     {
         return $this->hasMany(PropertyPreference::class);
