@@ -6,12 +6,9 @@
     @if (in_array(auth()->user()->getUserGroups()->count(), [0, 1]))
         <x-card>
             Things are better when shared, why not
-            <a
-                href="{{ route('user-groups.create') }}"
-                class="underline text-sm text-gray-600 hover:text-gray-900"
-            >
-                invite someone
-            </a>
+                <x-link href="{{ route('user-groups.create') }}">
+                    invite someone
+                </x-link>
         </x-card>
     @endif
 
