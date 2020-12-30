@@ -71,6 +71,7 @@ Route::group(['middleware' => ['auth']], static function () {
         Route::group(
             ['as' => 'properties.', 'prefix' => 'properties'],
             static function () {
+                Route::post('{id}/reprocess', [PropertyController::class, 'reprocess'])->name('reprocess');
                 Route::get('{id}', [PropertyController::class, 'show'])->name('show');
                 Route::delete('{id}', [PropertyController::class, 'destroy'])->name('destroy');
                 Route::post('/', [PropertyController::class, 'store'])->name('store');
