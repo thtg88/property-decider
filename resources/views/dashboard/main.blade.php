@@ -5,10 +5,12 @@
 
     @if (in_array($user_groups->count(), [0, 1]))
         <x-card>
-            Things are better when shared, why not
+            <p>
+                Things are better when shared, why not
                 <x-link href="{{ route('user-groups.create') }}">
                     invite someone
                 </x-link>
+            </p>
         </x-card>
     @endif
 
