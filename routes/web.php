@@ -69,7 +69,7 @@ Route::group(['middleware' => ['auth']], static function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 
-    Route::view('/dashboard', 'dashboard')->name('dashboard');
+    Route::view('/dashboard', 'dashboard.main')->name('dashboard');
 
     Route::group(['middleware' => ['verified']], static function () {
         // Property Preference Routes...

@@ -3,7 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -43,6 +46,16 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    public function getGroup(): ?Group
+    {
+        return $this->user_group->group ?? null;
+    }
+
+    public function getUserGroups(): Collection
+    {
+        return $this->user_group->group->user_groups ?? new Collection();
+    }
+
     // MUTATORS
 
     public function setEmailAttribute($value): void
@@ -53,5 +66,12 @@ class User extends Authenticatable implements MustVerifyEmail
     public function setPasswordAttribute($value): void
     {
         $this->attributes['password'] = Hash::make($value);
+    }
+
+    // RELATIONSHIPS
+
+    public function user_group(): HasOne
+    {
+        return $this->hasOne(UserGroup::class);
     }
 }
