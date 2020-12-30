@@ -83,5 +83,11 @@ Route::group(['middleware' => ['auth']], static function () {
                 Route::post('/', [PropertyController::class, 'store'])->name('store');
             }
         );
+
+        // User Group Routes...
+        Route::view('user-groups/create', 'user-groups.create')
+            ->name('user-groups.create');
+        Route::post('user-groups', [UserGroupController::class, 'store'])
+            ->name('user-groups.store');
     });
 });
