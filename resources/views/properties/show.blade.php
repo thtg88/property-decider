@@ -28,5 +28,9 @@
         @if ($model->status_id !== config('app.statuses.completed_id'))
             <p><strong>Status</strong>: {{ $model->status->name }}</p>
         @endif
+        <p class="mt-2">
+            <strong>Description</strong>:
+            {{ $model->description }}
+        </p>
     </x-card>
 </x-app-layout>
