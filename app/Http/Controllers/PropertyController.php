@@ -9,6 +9,21 @@ use Illuminate\Http\Request;
 class PropertyController extends Controller
 {
     /**
+     * Reprocess the specified resource's details.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function reprocess($id)
+    {
+        $model = Property::findOrFail($id);
+
+        dispatch(new ProcessPropertyUrlJob($model, $model->url));
+
+        return back();
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
