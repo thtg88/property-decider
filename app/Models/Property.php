@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -41,6 +42,13 @@ class Property extends Model
         'status_id' => 'integer',
         'user_id' => 'integer',
     ];
+
+    // RELATIONSHIPS
+
+    public function property_preferences(): HasMany
+    {
+        return $this->hasMany(PropertyPreference::class);
+    }
 
     public function status(): BelongsTo
     {
