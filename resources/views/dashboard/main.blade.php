@@ -16,19 +16,13 @@
         @include('dashboard.store-property-form')
     </x-card>
 
+    @if ($properties->count() > 0)
         <x-card>
-            <p>Your current group is formed of:</p>
-            <ul class="mt-2" style="list-style-type: none;">
-                @foreach (auth()->user()->getUserGroups() as $user_group)
-                    <li>
-                        <x-icons.verified-badge class="w-5 h-5 inline" />
-                        {{ $user_group->user->name }}
-                        @if (auth()->user()->id === $user_group->user_id)
-                            (Yourself)
-                        @endif
-                    </li>
-                @endforeach
-            </ul>
+            <x-card-title>Properties</x-card-title>
+            @include('dashboard.properties-list')
+        </x-card>
+    @endif
+
     @if ($user_groups->count() > 1)
         <x-card>
             <x-card-title>Your Group</x-card-title>
