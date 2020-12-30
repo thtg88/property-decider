@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -42,6 +43,16 @@ class Property extends Model
         'status_id' => 'integer',
         'user_id' => 'integer',
     ];
+
+    public function getLikes(): Collection
+    {
+        return $this->property_preferences->where('is_liked', true);
+    }
+
+    public function getDislikes(): Collection
+    {
+        return $this->property_preferences->where('is_liked', false);
+    }
 
     // RELATIONSHIPS
 

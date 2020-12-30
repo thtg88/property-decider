@@ -3,7 +3,7 @@
         <x-title>{{ __('Property Decider') }}</x-title>
     </x-slot>
 
-    @if (in_array(auth()->user()->getUserGroups()->count(), [0, 1]))
+    @if (in_array($user_groups->count(), [0, 1]))
         <x-card>
             Things are better when shared, why not
                 <x-link href="{{ route('user-groups.create') }}">
@@ -16,7 +16,6 @@
         @include('dashboard.store-property-form')
     </x-card>
 
-    @if (auth()->user()->getUserGroups()->count() > 1)
         <x-card>
             <p>Your current group is formed of:</p>
             <ul class="mt-2" style="list-style-type: none;">
@@ -30,6 +29,10 @@
                     </li>
                 @endforeach
             </ul>
+    @if ($user_groups->count() > 1)
+        <x-card>
+            <x-card-title>Your Group</x-card-title>
+            @include('dashboard.user-groups-list')
         </x-card>
     @endif
 </x-app-layout>
