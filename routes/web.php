@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AcceptInviteController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PropertyPreferenceController;
+use App\Http\Controllers\UserGroupController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,6 +45,9 @@ Route::group(['middleware' => ['guest']], static function () {
         ->name('password.reset');
     Route::post('/reset-password', [NewPasswordController::class, 'store'])
         ->name('password.update');
+
+    Route::get('invites/accept/{token?}', [AcceptInviteController::class, 'showAcceptInviteForm'])
+        ->name('invites.accept');
 });
 
 Route::group(['middleware' => ['auth']], static function () {
