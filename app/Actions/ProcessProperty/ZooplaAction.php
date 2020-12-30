@@ -45,7 +45,18 @@ class ZooplaAction extends ProviderAction implements RespondsToProviderUrlInterf
 
     public static function respondsTo(string $url): bool
     {
-        return str_starts_with($url, 'https://zoopla.co.uk/');
+        $supported_base_urls = [
+            'https://zoopla.co.uk/',
+            'https://www.zoopla.co.uk/',
+        ];
+
+        foreach ($supported_base_urls as $base_url) {
+            if (str_starts_with($url, $base_url)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     protected function processAmenityNames(): array
