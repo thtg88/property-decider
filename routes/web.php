@@ -79,7 +79,7 @@ Route::group(['middleware' => ['auth']], static function () {
 
     Route::group(['middleware' => ['verified']], static function () {
         // Property Preference Routes...
-        Route::delete('property-preferences/{id}', [PropertyPreferenceController::class, 'destroy'])
+        Route::delete('property-preferences/{property_preference}', [PropertyPreferenceController::class, 'destroy'])
             ->name('property-preferences.destroy');
 
         // Property Routes...

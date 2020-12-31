@@ -9,12 +9,13 @@ class PropertyPreferenceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
      * @return \Illuminate\Http\Response
+     * @param \App\Models\PropertyPreference $property_preference
      */
-    public function destroy($id)
-    {
-        PropertyPreference::findOrFail($id)->delete();
+    public function destroy(
+        PropertyPreference $property_preference
+    ) {
+        $property_preference->delete();
 
         return back();
     }
