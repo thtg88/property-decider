@@ -10,20 +10,22 @@ use Illuminate\Http\Request;
 class PropertyController extends Controller
 {
     /**
-     * Dislike the specified resource's details.
+     * Dislike the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param \App\Models\Property $property
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function dislike(Request $request, $id)
+    public function dislike(Request $request, Property $property)
     {
-        $model = Property::findOrFail($id);
-
         $user = $request->user();
 
+        if (! $user->can('dislike', $property)) {
+            abort(403);
+        }
+
         PropertyPreference::firstOrCreate([
-            'property_id' => $model->id,
+            'property_id' => $property->id,
             'user_id' => $user->id,
         ], ['is_liked' => false]);
 
@@ -31,20 +33,22 @@ class PropertyController extends Controller
     }
 
     /**
-     * Like the specified resource's details.
+     * Like the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param \App\Models\Property $property
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function like(Request $request, $id)
+    public function like(Request $request, Property $property)
     {
-        $model = Property::findOrFail($id);
-
         $user = $request->user();
 
+        if (! $user->can('like', $property)) {
+            abort(403);
+        }
+
         PropertyPreference::firstOrCreate([
-            'property_id' => $model->id,
+            'property_id' => $property->id,
             'user_id' => $user->id,
         ], ['is_liked' => true]);
 

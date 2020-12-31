@@ -86,8 +86,8 @@ Route::group(['middleware' => ['auth']], static function () {
         Route::group(
             ['as' => 'properties.', 'prefix' => 'properties'],
             static function () {
-                Route::post('{id}/dislike', [PropertyController::class, 'dislike'])->name('dislike');
-                Route::post('{id}/like', [PropertyController::class, 'like'])->name('like');
+                Route::post('{property}/dislike', [PropertyController::class, 'dislike'])->name('dislike');
+                Route::post('{property}/like', [PropertyController::class, 'like'])->name('like');
                 Route::post('{id}/reprocess', [PropertyController::class, 'reprocess'])->name('reprocess');
                 Route::get('{id}', [PropertyController::class, 'show'])->name('show');
                 Route::delete('{id}', [PropertyController::class, 'destroy'])->name('destroy');
