@@ -9,8 +9,8 @@ class PropertyPreferenceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @return \Illuminate\Http\Response
      * @param \App\Models\PropertyPreference $property_preference
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(
         PropertyPreference $property_preference
