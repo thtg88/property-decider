@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\PropertyPreference;
+use App\Policies\PropertyPreferencePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -13,6 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
+        PropertyPreference::class => PropertyPreferencePolicy::class,
     ];
 
     /**
