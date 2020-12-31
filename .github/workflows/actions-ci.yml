@@ -27,8 +27,8 @@ jobs:
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
 
-    # - name: Run linting
-    #   run: composer run-script check-style
+    - name: Run linting
+      run: composer run-script check-style
 
     - name: Run static analysis
       run: composer run-script stan
