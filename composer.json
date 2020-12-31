@@ -77,7 +77,9 @@
         ],
         "post-install-cmd": "[[ -d .git ]] && vendor/bin/cghooks add --no-lock || true",
         "post-update-cmd": "[[ -d .git ]] && vendor/bin/cghooks update || true",
-        "check-style": "vendor/bin/php-cs-fixer fix --using-cache=no --diff --dry-run",
+        "check-style": [
+            "vendor/bin/tlint lint resources/views"
+        ],
         "fix-style": "vendor/bin/php-cs-fixer fix --using-cache=no",
         "stan": [
             "vendor/bin/phpstan analyse --memory-limit=512M",
