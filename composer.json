@@ -42,7 +42,9 @@
     },
     "extra": {
         "hooks": {
-            "pre-commit": []
+            "pre-commit": [
+                "vendor/bin/tlint lint resources/views"
+            ]
         },
         "laravel": {
             "dont-discover": []
