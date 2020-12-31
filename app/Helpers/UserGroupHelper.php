@@ -20,7 +20,7 @@ class UserGroupHelper
      */
     public function invite(User $user, User $inviter): UserGroup
     {
-        $current_user_group = $inviter->user_groups()->first();
+        $current_user_group = $inviter->user_group;
         if ($current_user_group === null) {
             $group = Group::create();
             $current_user_group = UserGroup::create([
@@ -53,7 +53,7 @@ class UserGroupHelper
      */
     protected function sendUserInvite(User $user, UserGroup $user_group): void
     {
-        // create password reset token
+        /** @psalm-suppress UndefinedInterfaceMethod */
         $token = Password::broker()->createToken($user);
 
         // They will then an email prompting them to reset their password
