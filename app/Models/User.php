@@ -57,7 +57,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getUserGroups(): Collection
     {
-        return $this->user_group->group->user_groups ?? new Collection();
+        return $this->getGroup()->user_groups ?? new Collection();
     }
 
     // MUTATORS
