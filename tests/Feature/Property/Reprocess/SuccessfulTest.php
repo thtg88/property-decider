@@ -23,7 +23,7 @@ class SuccessfulTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = User::factory()->emailVerified()->create();
+        $this->user = User::factory()->emailVerified()->createOne();
     }
 
     /** @test */
@@ -31,7 +31,7 @@ class SuccessfulTest extends TestCase
     {
         Bus::fake();
 
-        $model = call_user_func($this->model_classname.'::factory')->create([
+        $model = call_user_func($this->model_classname.'::factory')->createOne([
             'user_id' => $this->user->id,
         ]);
 
@@ -51,13 +51,13 @@ class SuccessfulTest extends TestCase
     {
         Bus::fake();
 
-        $model = call_user_func($this->model_classname.'::factory')->create();
-        $group = Group::factory()->create();
-        UserGroup::factory()->invited($model->user)->accepted()->create([
+        $model = call_user_func($this->model_classname.'::factory')->createOne();
+        $group = Group::factory()->createOne();
+        UserGroup::factory()->invited($model->user)->accepted()->createOne([
             'group_id' => $group->id,
             'user_id' => $model->user_id,
         ]);
-        UserGroup::factory()->invited($model->user)->accepted()->create([
+        UserGroup::factory()->invited($model->user)->accepted()->createOne([
             'group_id' => $group->id,
             'user_id' => $this->user->id,
         ]);

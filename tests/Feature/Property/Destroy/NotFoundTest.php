@@ -18,7 +18,7 @@ class NotFoundTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = User::factory()->emailVerified()->create();
+        $this->user = User::factory()->emailVerified()->createOne();
     }
 
     /** @test */
@@ -40,7 +40,7 @@ class NotFoundTest extends TestCase
     /** @test */
     public function deleted_model_not_found_errors(): void
     {
-        $model = call_user_func($this->model_classname.'::factory')->create();
+        $model = call_user_func($this->model_classname.'::factory')->createOne();
 
         $model->delete();
 

@@ -18,13 +18,13 @@ class AuthorizationTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = User::factory()->emailVerified()->create();
+        $this->user = User::factory()->emailVerified()->createOne();
     }
 
     /** @test */
     public function not_owned_model_authorization_errors(): void
     {
-        $model = call_user_func($this->model_classname.'::factory')->create();
+        $model = call_user_func($this->model_classname.'::factory')->createOne();
 
         $response = $this->actingAs($this->user)
             ->delete($this->getRoute([$model->id]));

@@ -18,13 +18,13 @@ class SuccessfulTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = User::factory()->emailVerified()->create();
+        $this->user = User::factory()->emailVerified()->createOne();
     }
 
     /** @test */
     public function successful_destroy(): void
     {
-        $model = call_user_func($this->model_classname.'::factory')->create([
+        $model = call_user_func($this->model_classname.'::factory')->createOne([
             'user_id' => $this->user->id,
         ]);
 

@@ -21,7 +21,7 @@ class ValidationTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = User::factory()->emailVerified()->create();
+        $this->user = User::factory()->emailVerified()->createOne();
     }
 
     /** @test */
