@@ -17,7 +17,7 @@ class CreateUserGroupsTable extends Migration
             $table->id();
             $table->foreignId('group_id')->index();
             $table->foreignId('user_id')->index();
-            $table->foreignId('inviter_id')->index();
+            $table->foreignId('inviter_id')->nullable()->index();
             $table->timestamp('invited_at')->nullable();
             $table->timestamp('accepted_at')->nullable();
             $table->timestamps();
