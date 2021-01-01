@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\UserGroupHelper;
 use App\Models\User;
+use App\Models\UserGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -18,6 +19,12 @@ class UserGroupController extends Controller
      */
     public function store(Request $request, UserGroupHelper $helper)
     {
+        $current_user = $request->user();
+
+        if (! $current_user->can('create', UserGroup::class)) {
+            abort(403);
+        }
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
@@ -31,7 +38,7 @@ class UserGroupController extends Controller
             'password' => Str::random(30),
         ]);
 
-        $helper->invite($user, $request->user());
+        $helper->invite($user, $current_user);
 
         return redirect()->route('dashboard');
     }
