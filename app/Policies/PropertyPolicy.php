@@ -16,17 +16,7 @@ class PropertyPolicy extends Policy
      */
     public function dislike(User $user, Model $model)
     {
-        // If I created the property
-        if ($user->id === $model->user_id) {
-            return true;
-        }
-
-        // user is part of the group of the creator
-        return $user->getUserGroups()
-            ->whereNotNull('accepted_at')
-            ->where('group_id', $model->user?->getGroup()?->id ?? 0)
-            ->where('user_id', $user->id)
-            ->count() > 0;
+        return $this->ownerOrGroupMember($user, $model);
     }
 
     /**
@@ -37,6 +27,11 @@ class PropertyPolicy extends Policy
      * @return bool
      */
     public function like(User $user, Model $model)
+    {
+        return $this->ownerOrGroupMember($user, $model);
+    }
+
+    protected function ownerOrGroupMember(User $user, Model $model): bool
     {
         // If I created the property
         if ($user->id === $model->user_id) {
