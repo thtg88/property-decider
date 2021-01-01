@@ -29,9 +29,14 @@ class PropertyFactory extends Factory
             'price' => rand(10000, 1000000),
             'status_id' => Status::inRandomOrder()->first(),
             'title' => $this->faker->words(5, true),
-            'url' => $this->faker->safeEmailDomain.'/'.
-                $this->faker->slug().'.html',
+            'url' => $this->fakeUrl(),
             'user_id' => User::factory(),
         ];
+    }
+
+    public function fakeUrl(): string
+    {
+        return 'https://'.$this->faker->safeEmailDomain.
+            '/'.$this->faker->slug().'.html';
     }
 }
