@@ -39,11 +39,7 @@ class SuccessfulTest extends TestCase
             ->post($this->getRoute([$model->id]));
         $response->assertStatus(302);
 
-        Bus::assertDispatched(
-            static function (ProcessPropertyUrlJob $job) use ($model) {
-                return $job->property->id === $model->id;
-            }
-        );
+        Bus::assertDispatched(ProcessPropertyUrlJob::class);
     }
 
     /** @test */
@@ -66,10 +62,6 @@ class SuccessfulTest extends TestCase
             ->post($this->getRoute([$model->id]));
         $response->assertStatus(302);
 
-        Bus::assertDispatched(
-            static function (ProcessPropertyUrlJob $job) use ($model) {
-                return $job->property->id === $model->id;
-            }
-        );
+        Bus::assertDispatched(ProcessPropertyUrlJob::class);
     }
 }
