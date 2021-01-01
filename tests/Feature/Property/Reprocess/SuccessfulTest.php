@@ -47,7 +47,7 @@ class SuccessfulTest extends TestCase
     }
 
     /** @test */
-    public function successful_like_as_group_member(): void
+    public function successful_reprocess_as_group_member(): void
     {
         Bus::fake();
 
