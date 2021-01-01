@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\PropertyHelper;
 use App\Jobs\ProcessPropertyUrlJob;
 use App\Models\Property;
 use App\Models\PropertyPreference;
@@ -77,9 +78,10 @@ class PropertyController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
+     * @param \App\Helpers\PropertyHelper $helper
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, Helper $helper)
+    public function store(Request $request, PropertyHelper $helper)
     {
         $request->validate([
             'url' => 'required|string|url|max:2000|starts_with:http',
