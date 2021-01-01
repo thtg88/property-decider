@@ -33,7 +33,8 @@ class SuccessfulTest extends TestCase
 
         $response = $this->actingAs($this->user)
             ->get($this->getRoute([$model->id]));
-        $response->assertStatus(200);
+        $response->assertStatus(200)
+            ->assertViewIs('properties.show');
     }
 
     /** @test */
@@ -54,6 +55,7 @@ class SuccessfulTest extends TestCase
 
         $response = $this->actingAs($this->user)
             ->get($this->getRoute([$model->id]));
-        $response->assertStatus(200);
+        $response->assertStatus(200)
+            ->assertViewIs('properties.show');
     }
 }
