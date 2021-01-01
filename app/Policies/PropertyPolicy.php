@@ -31,6 +31,18 @@ class PropertyPolicy extends Policy
         return $this->isOwnerOrOwnerGroupMember($user, $model);
     }
 
+    /**
+     * Determine whether the user can reprocess the model.
+     *
+     * @param \App\Models\User $user
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @return bool
+     */
+    public function reprocess(User $user, Model $model)
+    {
+        return $this->isOwnerOrOwnerGroupMember($user, $model);
+    }
+
     protected function isOwnerOrOwnerGroupMember(
         User $user,
         Model $model

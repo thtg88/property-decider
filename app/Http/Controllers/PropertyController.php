@@ -58,14 +58,17 @@ class PropertyController extends Controller
     /**
      * Reprocess the specified resource's details.
      *
-     * @param int $id
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Property $property
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function reprocess($id)
+    public function reprocess(Request $request, Property $property)
     {
-        $model = Property::findOrFail($id);
+        if (! $request->user()->can('reprocess', $property)) {
+            abort(403);
+        }
 
-        dispatch(new ProcessPropertyUrlJob($model, $model->url));
+        dispatch(new ProcessPropertyUrlJob($property, $property->url));
 
         return back();
     }

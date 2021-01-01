@@ -18,7 +18,7 @@ class ProcessPropertyUrlJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public function __construct(
-        protected Property $property,
+        public Property $property,
         protected string $url,
     ) {}
 
