@@ -20,14 +20,20 @@ class UserFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => $this->faker->firstName,
             'email' => $this->faker->unique()->safeEmail,
-            'email_verified_at' => now(),
             'password' => 'password',
             'remember_token' => Str::random(10),
         ];
+    }
+
+    public function emailVerified(): self
+    {
+        return $this->state([
+            'email_verified_at' => now(),
+        ]);
     }
 }

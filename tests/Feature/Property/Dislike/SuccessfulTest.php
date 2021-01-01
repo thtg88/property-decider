@@ -21,7 +21,7 @@ class SuccessfulTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = User::factory()->create();
+        $this->user = User::factory()->emailVerified()->create();
     }
 
     /** @test */
