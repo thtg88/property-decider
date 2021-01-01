@@ -52,4 +52,24 @@ class AuthorizationTest extends TestCase
             ->post($this->getRoute([$model->id]));
         $response->assertStatus(403);
     }
+
+    /** @test */
+    public function not_invited_group_member_invitation_authorization_errors(): void
+    {
+        $model = call_user_func($this->model_classname.'::factory')->create();
+        $group = Group::factory()->create();
+        $owner_group = UserGroup::factory()->invited($model->user)->accepted()
+            ->create([
+                'group_id' => $group->id,
+                'user_id' => $model->user_id,
+            ]);
+        $user_group = UserGroup::factory()->create([
+            'group_id' => $group->id,
+            'user_id' => $this->user->id,
+        ]);
+
+        $response = $this->actingAs($this->user)
+            ->post($this->getRoute([$model->id]));
+        $response->assertStatus(403);
+    }
 }

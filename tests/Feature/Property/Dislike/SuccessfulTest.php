@@ -25,7 +25,7 @@ class SuccessfulTest extends TestCase
     }
 
     /** @test */
-    public function successful_like_as_property_creator(): void
+    public function successful_dislike_as_property_creator(): void
     {
         $model = call_user_func($this->model_classname.'::factory')->create([
             'user_id' => $this->user->id,
@@ -45,7 +45,7 @@ class SuccessfulTest extends TestCase
     }
 
     /** @test */
-    public function successful_like_as_group_member(): void
+    public function successful_dislike_as_group_member(): void
     {
         $model = call_user_func($this->model_classname.'::factory')->create();
         $group = Group::factory()->create();
