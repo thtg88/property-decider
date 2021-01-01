@@ -129,12 +129,17 @@ class PropertyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Property $property
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request, Property $property)
     {
-        Property::findOrFail($id)->delete();
+        if (! $request->user()->can('delete', $property)) {
+            abort(403);
+        }
+
+        $property->delete();
 
         return redirect()->route('dashboard');
     }
