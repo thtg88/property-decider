@@ -16,7 +16,7 @@ class PropertyPolicy extends Policy
      */
     public function dislike(User $user, Model $model)
     {
-        return $this->ownerOrGroupMember($user, $model);
+        return $this->isOwnerOrOwnerGroupMember($user, $model);
     }
 
     /**
@@ -28,11 +28,13 @@ class PropertyPolicy extends Policy
      */
     public function like(User $user, Model $model)
     {
-        return $this->ownerOrGroupMember($user, $model);
+        return $this->isOwnerOrOwnerGroupMember($user, $model);
     }
 
-    protected function ownerOrGroupMember(User $user, Model $model): bool
-    {
+    protected function isOwnerOrOwnerGroupMember(
+        User $user,
+        Model $model
+    ): bool {
         // If I created the property
         if ($user->id === $model->user_id) {
             return true;
