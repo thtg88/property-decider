@@ -9,6 +9,7 @@
 >
     <projectFiles>
         <directory name="app"/>
+        <directory name="tests"/>
         <directory name="database/factories"/>
         <directory name="database/seeders"/>
         <ignoreFiles>
