@@ -79,18 +79,15 @@ class PropertyController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request, Helper $helper)
     {
         $request->validate([
             'url' => 'required|string|url|max:2000|starts_with:http',
         ]);
 
-        // Remove query string
-        $url = strtok($request->get('url'), '?');
-
         $model = Property::create([
             'status_id' => config('app.statuses.queued_id'),
-            'url' => $url,
+            'url' => $helper->stripQuery($request->get('url')),
             'user_id' => $request->user()->id,
         ]);
 
