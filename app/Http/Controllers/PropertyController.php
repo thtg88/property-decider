@@ -103,20 +103,26 @@ class PropertyController extends Controller
      * Display the specified resource.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param \App\Models\Property $property
      * @return \Illuminate\View\View
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, Property $property)
     {
-        $model = Property::findOrFail($id)->load(['property_preferences.user']);
+        $user = $request->user();
 
-        $user_preference = $model->property_preferences
-            ->where('property_id', $model->id)
+        if (! $user->can('view', $property)) {
+            abort(403);
+        }
+
+        $property = $property->load(['property_preferences.user']);
+
+        $user_preference = $property->property_preferences
+            ->where('property_id', $property->id)
             ->where('user_id', $request->user()->id)
             ->first();
 
         return view('properties.show')
-            ->with('model', $model)
+            ->with('model', $property)
             ->with('user_preference', $user_preference);
     }
 

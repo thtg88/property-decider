@@ -89,7 +89,7 @@ Route::group(['middleware' => ['auth']], static function () {
                 Route::post('{property}/dislike', [PropertyController::class, 'dislike'])->name('dislike');
                 Route::post('{property}/like', [PropertyController::class, 'like'])->name('like');
                 Route::post('{property}/reprocess', [PropertyController::class, 'reprocess'])->name('reprocess');
-                Route::get('{id}', [PropertyController::class, 'show'])->name('show');
+                Route::get('{property}', [PropertyController::class, 'show'])->name('show');
                 Route::delete('{id}', [PropertyController::class, 'destroy'])->name('destroy');
                 Route::post('/', [PropertyController::class, 'store'])->name('store');
             }
