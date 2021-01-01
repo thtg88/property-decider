@@ -4,11 +4,8 @@ namespace Tests\Feature\Property\Store;
 
 use App\Helpers\PropertyHelper;
 use App\Jobs\ProcessPropertyUrlJob;
-use App\Models\Group;
-use App\Models\PropertyPreference;
 use App\Models\Status;
 use App\Models\User;
-use App\Models\UserGroup;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Bus;
 use Tests\Feature\Property\WithModelData;

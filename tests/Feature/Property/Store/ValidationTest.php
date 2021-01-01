@@ -2,9 +2,7 @@
 
 namespace Tests\Feature\Property\Store;
 
-use App\Models\Group;
 use App\Models\User;
-use App\Models\UserGroup;
 use Illuminate\Support\Str;
 use Tests\Feature\Property\WithModelData;
 use Tests\Feature\TestCase;
