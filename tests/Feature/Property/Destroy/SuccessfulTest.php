@@ -47,16 +47,14 @@ class SuccessfulTest extends TestCase
     {
         $model = call_user_func($this->model_classname.'::factory')->create();
         $group = Group::factory()->create();
-        $owner_group = UserGroup::factory()->invited($model->user)->accepted()
-            ->create([
-                'group_id' => $group->id,
-                'user_id' => $model->user_id,
-            ]);
-        $user_group = UserGroup::factory()->invited($model->user)->accepted()
-            ->create([
-                'group_id' => $group->id,
-                'user_id' => $this->user->id,
-            ]);
+        UserGroup::factory()->invited($model->user)->accepted()->create([
+            'group_id' => $group->id,
+            'user_id' => $model->user_id,
+        ]);
+        UserGroup::factory()->invited($model->user)->accepted()->create([
+            'group_id' => $group->id,
+            'user_id' => $this->user->id,
+        ]);
 
         $response = $this->actingAs($this->user)
             ->delete($this->getRoute([$model->id]));
