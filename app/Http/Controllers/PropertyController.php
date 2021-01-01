@@ -90,7 +90,7 @@ class PropertyController extends Controller
         }
 
         $request->validate([
-            'url' => 'required|string|url|max:2000|starts_with:http',
+            'url' => 'bail|required|string|url|starts_with:http|max:2000',
         ]);
 
         $model = Property::create([
