@@ -8,6 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class PropertyPolicy extends Policy
 {
     /**
+     * Determine whether the user can create models.
+     *
+     * @param \App\Models\User $user
+     * @return bool
+     */
+    public function create(User $user)
+    {
+        return true;
+    }
+
+    /**
      * Determine whether the user can delete the model.
      *
      * @param \App\Models\User $user

@@ -83,6 +83,12 @@ class PropertyController extends Controller
      */
     public function store(Request $request, PropertyHelper $helper)
     {
+        $user = $request->user();
+
+        if (! $user->can('create', Property::class)) {
+            abort(403);
+        }
+
         $request->validate([
             'url' => 'required|string|url|max:2000|starts_with:http',
         ]);
@@ -90,7 +96,7 @@ class PropertyController extends Controller
         $model = Property::create([
             'status_id' => config('app.statuses.queued_id'),
             'url' => $helper->stripQuery($request->get('url')),
-            'user_id' => $request->user()->id,
+            'user_id' => $user->id,
         ]);
 
         dispatch(new ProcessPropertyUrlJob($model, $model->url));
