@@ -18,10 +18,25 @@
         @include('dashboard.store-property-form')
     </x-card>
 
-    @if ($properties->count() > 0)
+    @if ($new_properties->count() > 0)
+        <x-card>
+            <x-card-title>{{ __('New Properties') }}</x-card-title>
+
+            <p class="mt-2">
+                You have not expressed your preference to these property,
+                have a look at them below,
+                and let your group know what you think!
+            </p>
+
+            @include('dashboard.new-properties-list')
+        </x-card>
+    @endif
+
+    @if ($voted_properties->count() > 0)
         <x-card>
             <x-card-title>Properties</x-card-title>
-            @include('dashboard.properties-list')
+
+            @include('dashboard.voted-properties-list')
         </x-card>
     @endif
 

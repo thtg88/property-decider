@@ -26,8 +26,21 @@ class DashboardController extends Controller
             $properties = new Collection();
         }
 
+        $voted_property_ids = $properties->pluck('property_preferences')
+            ->flatten()
+            ->pluck('property_id')
+            ->unique();
+        if ($voted_property_ids->count() === 0) {
+            $new_properties = $properties;
+            $voted_properties = new Collection();
+        } else {
+            $new_properties = $properties->whereNotIn('id', $voted_property_ids);
+            $voted_properties = $properties->whereIn('id', $voted_property_ids);
+        }
+
         return view('dashboard.main')
-            ->with('properties', $properties)
+            ->with('new_properties', $new_properties)
+            ->with('voted_properties', $voted_properties)
             ->with('user_groups', $user_groups);
     }
 }
