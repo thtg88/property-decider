@@ -24,6 +24,9 @@
                     required
                     autofocus
                 />
+                @error('name')
+                    <x-invalid-field>{{ $message }}</x-invalid-field>
+                @enderror
             </div>
 
             <!-- Email Address -->
@@ -37,6 +40,9 @@
                     :value="old('email')"
                     required
                 />
+                @error('email')
+                    <x-invalid-field>{{ $message }}</x-invalid-field>
+                @enderror
             </div>
 
             <!-- Password -->
@@ -50,6 +56,9 @@
                     required
                     autocomplete="new-password"
                 />
+                @error('password')
+                    <x-invalid-field>{{ $message }}</x-invalid-field>
+                @enderror
             </div>
 
             <!-- Confirm Password -->
@@ -61,6 +70,7 @@
                     type="password"
                     name="password_confirmation"
                     required
+                    autocomplete="new-password"
                 />
             </div>
 
