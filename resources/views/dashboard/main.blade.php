@@ -43,7 +43,13 @@
     @if ($user_groups->count() > 1)
         <x-card>
             <x-card-title>Your Group</x-card-title>
+
             @include('dashboard.user-groups-list')
+
+            <p class="mt-2">
+                You can always
+                <x-link href="{{ route('user-groups.create') }}">invite someone new</x-link>
+            </p>
         </x-card>
     @endif
 </x-app-layout>
