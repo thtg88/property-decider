@@ -42,6 +42,11 @@ class UserGroup extends Model
         return $this->belongsTo(Group::class);
     }
 
+    public function inviter(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'inviter_id', 'id');
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
