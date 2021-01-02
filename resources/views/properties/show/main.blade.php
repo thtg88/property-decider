@@ -52,4 +52,17 @@
 
         @include('properties.show.comments-create-form')
     </x-card>
+
+    @if (
+        $model->status_id !== config('app.statuses.completed_id') &&
+        $model->status_id !== config('app.statuses.failed_id')
+    )
+        <script>
+            window.addEventListener('load', function () {
+                window.setTimeout(function () {
+                    location.reload();
+                }, 5000);
+            });
+        </script>
+    @endif
 </x-app-layout>
