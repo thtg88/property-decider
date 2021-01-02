@@ -5,42 +5,20 @@
                 <x-title>{{ $model->title ?? $model->url }}</x-title>
             </div>
         </div>
-        <div class="mt-4 flex-shrink-0 flex md:mt-0 md:ml-4">
-            <form action="{{ route('properties.reprocess', $model) }}" method="post">
-                @csrf
-                <x-buttons.primary-button-link href="{{ $model->url }}" target="_blank" rel="noopener noreferrer">
-                    View on website
-                    <x-icons.external-link class="w-4" />
-                </x-buttons.primary-button-link>
-            </form>
-        </div>
-        <div class="mt-4 flex-shrink-0 flex md:mt-0 md:ml-4">
-            <form action="{{ route('properties.reprocess', $model) }}" method="post">
-                @csrf
-                <x-buttons.primary-button type="submit" data-confirm="Are you sure you want to reprocess this property details? This will overwrite existing information">
-                    Reprocess
-                </x-buttons.primary-button>
-            </form>
-        </div>
-        <div class="mt-4 flex-shrink-0 flex md:mt-0 md:ml-4">
-            <form action="{{ route('properties.destroy', $model) }}" method="post">
-                @csrf
-                @method('delete')
-                <x-buttons.danger-button type="submit" data-confirm="Are you sure you want to remove this property?">
-                    Remove
-                </x-buttons.danger-button>
-            </form>
-        </div>
+        @include('properties.show.header-actions')
     </x-slot>
 
     <x-card>
         <x-card-title>&pound;{{ number_format($model->price) }}</x-card-title>
+
         @if ($model->status_id !== config('app.statuses.completed_id'))
             <p><strong>Status</strong>: {{ $model->status->name }}</p>
         @endif
+
         <div class="mt-2">
             {!! strip_tags($model->description, '<br><strong>') !!}
         </div>
+
         <div class="mt-4 grid grid-cols-1 divide-y divide-gray-300">
             @foreach ($model->property_amenities as $property_amenity)
                 <div class="py-2">
@@ -48,6 +26,7 @@
                 </div>
             @endforeach
         </div>
+
         <p class="mt-4 text-gray-500">
             Added by {{ $model->user->name }}
             {{ $model->created_at->diffForHumans() }}
@@ -68,6 +47,11 @@
                     </x-button>
                 </div>
             </form>
+
+            <p class="mt-2">
+                Why did you {{ $user_preference->is_liked === false ? 'dis' : '' }}like this property?
+                Leave a <x-link href="#comments">comment</x-link>
+            </p>
         @else
             <form action="{{ route('properties.like', $model) }}" method="post" class="inline">
                 @csrf
@@ -85,28 +69,51 @@
         @endif
     </x-card>
 
+    {{-- If there's at least one preference which is not mine --}}
     @if (
-        (
-            $model->property_preferences->count() > 0 &&
-            $user_preference === null
-        ) ||
-        (
-            $model->property_preferences->count() > 1 &&
-            $user_preference !== null
-        )
+        ($model->property_preferences->count() > 0 && $user_preference === null) ||
+        ($model->property_preferences->count() > 1 && $user_preference !== null)
     )
-        <x-card>
-            @foreach ($model->property_preferences as $property_preference)
-                <p class="mt-2">
-                    @if ($property_preference->is_liked === true)
-                        <x-icons.check class="w-10 h-10 inline mr-2" />
-                    @else
-                        <x-icons.times class="w-10 h-10 inline mr-2" />
-                    @endif
-                    {{ $property_preference->user->name }}
-                    {{ $property_preference->is_liked === false ? 'dis' : '' }}liked this property
-                </p>
-            @endforeach
-        </x-card>
+        <x-card>@include('properties.show.preferences')</x-card>
     @endif
+
+    <x-card>
+        <x-card-title id="comments">{{ __('Comments') }}</x-card-title>
+
+        <!-- Session Status -->
+        <x-auth-session-status class="mb-4" :status="session('status')" />
+
+        @foreach ($model->comments as $comment)
+            <p class="mt-4">
+                <strong>{{ $comment->user->name ?? 'N/A' }}</strong>
+                ({{ $comment->created_at->diffForHumans() }}):
+                {{ $comment->content }}
+            </p>
+        @endforeach
+
+        <form action="{{ route('properties.comments.store', $model) }}" method="post">
+            @csrf
+
+            <!-- Content -->
+            <div class="mt-4">
+                <x-label for="content" :value="__('Add a comment')" />
+                <x-input
+                    id="content"
+                    class="block mt-1 w-full"
+                    type="text"
+                    name="content"
+                    :value="old('content')"
+                    placeholder="e.g. I love this!"
+                    required
+                />
+                @error('content')
+                    <x-invalid-field>{{ $message }}</x-invalid-field>
+                @enderror
+            </div>
+
+            <div class="flex items-center justify-end mt-4">
+                <x-button class="ml-3">{{ __('Comment') }}</x-button>
+            </div>
+        </form>
+    </x-card>
 </x-app-layout>

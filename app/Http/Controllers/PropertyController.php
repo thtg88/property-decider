@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\PropertyHelper;
 use App\Jobs\ProcessPropertyUrlJob;
+use App\Models\Comment;
 use App\Models\Property;
 use App\Models\PropertyPreference;
 use Illuminate\Http\Request;
@@ -105,6 +106,34 @@ class PropertyController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Helpers\Property $property
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function storeComment(Request $request, Property $property)
+    {
+        $user = $request->user();
+
+        if (! $user->can('createComment', $property)) {
+            abort(403);
+        }
+
+        $request->validate(['content' => 'required|string|max:65535']);
+
+        $model = Comment::create([
+            'content' => $request->get('content'),
+            'property_id' => $property->id,
+            'user_id' => $user->id,
+        ]);
+
+        // TODO: Notify group of comment?
+
+        return redirect(route('properties.show', $property).'#comments');
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param \Illuminate\Http\Request $request
@@ -126,7 +155,7 @@ class PropertyController extends Controller
             ->where('user_id', $request->user()->id)
             ->first();
 
-        return view('properties.show')
+        return view('properties.show.main')
             ->with('model', $property)
             ->with('user_preference', $user_preference);
     }

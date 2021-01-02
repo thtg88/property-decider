@@ -19,6 +19,18 @@ class PropertyPolicy extends Policy
     }
 
     /**
+     * Determine whether the user can create a comment for the model.
+     *
+     * @param \App\Models\User $user
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @return bool
+     */
+    public function createComment(User $user, Model $model)
+    {
+        return $this->isOwnerOrOwnerGroupMember($user, $model);
+    }
+
+    /**
      * Determine whether the user can delete the model.
      *
      * @param \App\Models\User $user

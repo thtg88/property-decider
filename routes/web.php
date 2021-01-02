@@ -86,6 +86,8 @@ Route::group(['middleware' => ['auth']], static function () {
         Route::group(
             ['as' => 'properties.', 'prefix' => 'properties/{property}'],
             static function () {
+                Route::post('comments', [PropertyController::class, 'storeComment'])
+                    ->name('comments.store');
                 Route::post('dislike', [PropertyController::class, 'dislike'])
                     ->name('dislike');
                 Route::post('like', [PropertyController::class, 'like'])
