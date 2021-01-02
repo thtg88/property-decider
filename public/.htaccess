@@ -15,7 +15,7 @@
     RewriteRule ^ %1 [L,R=301]
 
     # Redirect HTTP traffic to HTTPS on www domain
-    # RewriteCond %{HTTP_HOST} !www\.property-decider\.co\.uk
+    # RewriteCond %{HTTP_HOST} !^www\.property-decider\.co\.uk
     RewriteRule (.*) https://www.property-decider.co.uk%{REQUEST_URI} [R=302,L]
 
     # Send Requests To Front Controller...
