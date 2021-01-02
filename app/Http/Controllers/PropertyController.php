@@ -148,7 +148,12 @@ class PropertyController extends Controller
             abort(403);
         }
 
-        $property = $property->load(['property_preferences.user']);
+        $property = $property->load([
+            'comments.user',
+            'property_amenities.amenity',
+            'property_preferences.user',
+            'user',
+        ]);
 
         $user_preference = $property->property_preferences
             ->where('property_id', $property->id)
