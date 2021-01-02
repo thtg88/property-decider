@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <x-title>{{ __('Property Decider') }}</x-title>
+        <x-title>{{ config('app.name') }}</x-title>
     </x-slot>
 
     @if (in_array($user_groups->count(), [0, 1]))
