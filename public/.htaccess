@@ -15,10 +15,11 @@
     RewriteRule ^ %1 [L,R=301]
 
     # Redirect HTTP traffic to HTTPS
-    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https [OR]
+    RewriteCond %{HTTPS} off
     # RewriteCond %{HTTP_HOST} !localhost
     # RewriteCond %{HTTP_HOST} !127\.0\.0\.1
-    RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+    RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=302,L]
 
     # Redirect property-decider the incoming traffic to HTTPS production domain
     RewriteCond %{HTTP_HOST} ^property-decider\.herokuapp\.com [OR]
