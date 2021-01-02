@@ -109,7 +109,7 @@ class PropertyController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Helpers\Property $property
+     * @param \App\Models\Property $property
      * @return \Illuminate\Http\RedirectResponse
      */
     public function storeComment(Request $request, Property $property)
