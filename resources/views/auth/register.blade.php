@@ -64,6 +64,15 @@
                 />
             </div>
 
+            @if (config('captcha.mode') === true)
+                <div class="mt-4 mx-auto inline-block">
+                    {!! \Anhskohbo\NoCaptcha\Facades\NoCaptcha::display() !!}
+                </div>
+                @error('g-recaptcha-response')
+                    <x-invalid-field>{{ $message }}</x-invalid-field>
+                @enderror
+            @endif
+
             <div class="flex items-center justify-end mt-4">
                 <x-link href="{{ route('login') }}">
                     {{ __('Already registered?') }}
@@ -75,4 +84,5 @@
             </div>
         </form>
     </x-auth-card>
+    {!! \Anhskohbo\NoCaptcha\Facades\NoCaptcha::renderJs() !!}
 </x-guest-layout>

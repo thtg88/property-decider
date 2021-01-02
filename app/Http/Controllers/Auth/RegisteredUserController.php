@@ -24,18 +24,22 @@ class RegisteredUserController extends Controller
     /**
      * Handle an incoming registration request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
-     *
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $rules = [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|confirmed|min:8',
-        ]);
+        ];
+        if (config('captcha.mode') === true) {
+            $rules['g-recaptcha-response'] = 'required|captcha';
+        }
+
+        $request->validate($rules);
 
         Auth::login($user = User::create([
             'name' => $request->name,
