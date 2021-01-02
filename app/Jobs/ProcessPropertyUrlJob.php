@@ -35,7 +35,9 @@ class ProcessPropertyUrlJob implements ShouldQueue
             return;
         }
 
-        $this->property->update(['status_id' => config('app.statuses.processing_id')]);
+        $this->property->update([
+            'status_id' => config('app.statuses.processing_id'),
+        ]);
 
         // fetch URL
         try {
@@ -50,7 +52,8 @@ class ProcessPropertyUrlJob implements ShouldQueue
 
         if ($response->failed()) {
             $this->property->update([
-                'description' => 'Could not fetch the listing. The page responded with a status '.
+                'description' => 'Could not fetch the listing. '.
+                    'The page responded with a status '.
                     $response->status(),
                 'status_id' => config('app.statuses.failed_id'),
             ]);
@@ -58,15 +61,19 @@ class ProcessPropertyUrlJob implements ShouldQueue
         }
 
         foreach (Utils::PROVIDER_ACTIONS as $action_clasname) {
-            if ($action_clasname::respondsTo($this->url)) {
-                $action = new $action_clasname($this->property, $response->body());
-
-                $action();
-
-                $this->property->update(['status_id' => config('app.statuses.completed_id')]);
-
-                return;
+            if (! $action_clasname::respondsTo($this->url)) {
+                continue;
             }
+
+            $action = new $action_clasname($this->property, $response->body());
+
+            $action();
+
+            $this->property->update([
+                'status_id' => config('app.statuses.completed_id'),
+            ]);
+
+            return;
         }
 
         $this->property->update([
