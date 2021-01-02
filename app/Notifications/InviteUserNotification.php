@@ -61,9 +61,11 @@ class InviteUserNotification extends Notification implements ShouldQueue
                 ], false)
             )
             ->line(
-                'This invitation will expire in '.
-                ((int) config('auth.passwords.'.config('auth.defaults.passwords').'.invite_expire') / 60).
-                ' hours.'
+                'This invitation will expire in '.(config(
+                    'auth.passwords.'.
+                    config('auth.defaults.passwords').
+                    '.expire'
+                ) / 60).' hours.'
             )
             ->salutation('Regards,');
     }
