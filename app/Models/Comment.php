@@ -4,6 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property int $id
+ * @property int $property_id
+ * @property int $user_id
+ */
 class Comment extends Model
 {
     /**

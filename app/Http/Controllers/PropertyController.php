@@ -122,7 +122,7 @@ class PropertyController extends Controller
 
         $request->validate(['content' => 'required|string|max:65535']);
 
-        $model = Comment::create([
+        Comment::create([
             'content' => $request->get('content'),
             'property_id' => $property->id,
             'user_id' => $user->id,
