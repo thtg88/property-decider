@@ -31,7 +31,7 @@ class SendPropertyStoredNotificationListener
                 return $recipient->notification_preferences->where(
                     'type_id',
                     config('app.notification_types.new_property_id')
-                )->count() > 0;
+                )->where('is_active', true)->count() > 0;
             })
             ->each(fn (User $recipient) => $recipient->notify(
                 new PropertyStoredNotification($property, $creator)
