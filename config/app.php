@@ -263,4 +263,9 @@ return [
         'new_property_id' => (int) env('NOTIFICATION_TYPE_NEW_PROPERTY_ID', 1),
     ],
 
+    'disabled_notification_types' => [
+        (int) env('NOTIFICATION_TYPE_DISLIKED_PROPERTY_ID', 3),
+        (int) env('NOTIFICATION_TYPE_LIKED_PROPERTY_ID', 2),
+    ],
+
 ];

@@ -16,7 +16,7 @@
             name="notification_preferences[{{ $notification_type->id }}][type_id]"
             value="{{ $notification_type->id }}"
         />
-        <div class="mt-4">
+        <div class="my-4">
             <x-label for="notification_preferences_{{ $notification_type->id }}_is_active">
                 {{ $notification_type->description }}
             </x-label>
@@ -35,6 +35,14 @@
                     }}
                 >Yes</option>
             </x-select>
+            @if (in_array($notification_type->id, config('app.disabled_notification_types'), true))
+                <x-help-text>
+                    {{ __(
+                        'This notification is currently not available / not working. '.
+                        'Apologies for the inconvenience.'
+                    ) }}
+                </x-help-text>
+            @endif
             @error('notification_preferences.'.$notification_type->id.'.type_id')
                 <x-invalid-field>{{ $message }}</x-invalid-field>
             @enderror
