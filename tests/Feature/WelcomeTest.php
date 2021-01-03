@@ -9,7 +9,7 @@ class WelcomeTest extends TestCase
     /** @test */
     public function successful_get_as_guest(): void
     {
-        $response = $this->actingAs()->get($this->getRoute());
+        $response = $this->get($this->getRoute());
         $response->assertStatus(200)
             ->assertViewIs('welcome.main');
     }
