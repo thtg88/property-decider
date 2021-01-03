@@ -29,7 +29,7 @@ return static function (ContainerConfigurator $container_configurator): void {
         // SetList::PHPUNIT_YIELD_DATA_PROVIDER,
         // SetList::PRIVATIZATION,
         // SetList::PSR_4,
-        SetList::TYPE_DECLARATION,
+        // SetList::TYPE_DECLARATION,
         SetList::UNWRAP_COMPAT,
         SetList::EARLY_RETURN,
         // SetList::CARBON_2,
