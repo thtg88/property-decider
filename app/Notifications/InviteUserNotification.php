@@ -44,12 +44,12 @@ class InviteUserNotification extends Notification implements ShouldQueue
         return (new MailMessage)
             ->subject(
                 'You have been invited to '.config('app.name').' '.
-                'by '.($this->user_group->inviter->name ?? 'N/A').' '.
-                '('.($this->user_group->inviter->email ?? 'N/A').')'
+                'by '.($this->user_group->inviter->name ?? 'N/A')
             )
             ->greeting('Hi '.$notifiable->name)
             ->line(
-                ($this->user_group->inviter->name ?? 'N/A').
+                ($this->user_group->inviter->name ?? 'N/A').' '.
+                '('.($this->user_group->inviter->email ?? 'N/A').')'.
                 ' has invited you to join them on '.config('app.name').
                 ' – a system to make a decision about your next property move.'
             )
@@ -58,7 +58,7 @@ class InviteUserNotification extends Notification implements ShouldQueue
                 route('invites.accept', [
                     'token' => $this->token,
                     'email' => $notifiable->getEmailForPasswordReset(),
-                ], false)
+                ])
             )
             ->line(
                 'This invitation will expire in '.(config(
