@@ -74,6 +74,7 @@ class ProcessPropertyUrlJob implements ShouldQueue
                 'status_id' => config('app.statuses.completed_id'),
             ]);
 
+            // Notify group of new property
             event(new PropertyStored($this->property));
 
             return;

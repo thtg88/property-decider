@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\CommentStored;
 use App\Events\PropertyStored;
+use App\Listeners\SendCommentStoredNotificationListener;
 use App\Listeners\SendPropertyStoredNotificationListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -17,8 +19,11 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
+        CommentStored::class => [
+            SendCommentStoredNotificationListener::class,
+        ],
         PropertyStored::class => [
-            SendPropertyStoredNotificationListener::class
+            SendPropertyStoredNotificationListener::class,
         ],
         Registered::class => [
             SendEmailVerificationNotification::class,

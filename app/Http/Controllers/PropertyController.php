@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CommentStored;
 use App\Helpers\PropertyHelper;
 use App\Jobs\ProcessPropertyUrlJob;
 use App\Models\Comment;
@@ -122,13 +123,14 @@ class PropertyController extends Controller
 
         $request->validate(['content' => 'required|string|max:65535']);
 
-        Comment::create([
+        $model = Comment::create([
             'content' => $request->get('content'),
             'property_id' => $property->id,
             'user_id' => $user->id,
         ]);
 
-        // TODO: Notify group of comment?
+        // Notify group of comment
+        event(new CommentStored($model));
 
         return redirect(route('properties.show', $property).'#comments');
     }

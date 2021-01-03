@@ -34,6 +34,11 @@ class Comment extends Model
 
     // RELATIONSHIPS
 
+    public function property(): BelongsTo
+    {
+        return $this->belongsTo(Property::class);
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

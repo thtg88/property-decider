@@ -2,11 +2,14 @@
 
 namespace Tests\Feature\Property\Comments\Store;
 
+use App\Events\CommentStored;
 use App\Models\Comment;
 use App\Models\Group;
 use App\Models\User;
 use App\Models\UserGroup;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Notification;
 use Tests\Feature\Property\WithModelData;
 use Tests\Feature\TestCase;
 
@@ -28,6 +31,9 @@ class SuccessfulTest extends TestCase
     /** @test */
     public function successful_store_as_property_creator(): void
     {
+        Event::fake();
+        Notification::fake();
+
         $model = call_user_func($this->model_classname.'::factory')
             ->createOne(['user_id' => $this->user->id]);
 
@@ -56,11 +62,16 @@ class SuccessfulTest extends TestCase
         $response->assertRedirect(
             route('properties.show', ['property' => $model->id]).'#comments'
         );
+
+        Event::assertDispatched(CommentStored::class);
     }
 
     /** @test */
     public function successful_store_as_group_member(): void
     {
+        Event::fake();
+        Notification::fake();
+
         $model = call_user_func($this->model_classname.'::factory')->createOne();
         $content = $this->faker->text;
         $group = Group::factory()->createOne();
@@ -96,5 +107,7 @@ class SuccessfulTest extends TestCase
         $response->assertRedirect(
             route('properties.show', ['property' => $model->id]).'#comments'
         );
+
+        Event::assertDispatched(CommentStored::class);
     }
 }
