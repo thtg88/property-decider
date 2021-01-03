@@ -77,6 +77,8 @@ Route::group(['middleware' => ['auth']], static function () {
     Route::get('me', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('me', [ProfileController::class, 'update'])
         ->name('profile.update');
+    Route::put('me/notification-preferences', [ProfileController::class, 'updateNotificationPreferences'])
+        ->name('profile.notification-preferences.update');
     Route::post('me/change-password', [ProfileController::class, 'updatePassword'])
         ->name('profile.update-password');
 

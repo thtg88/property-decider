@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NotificationPreference;
+use App\Models\NotificationType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 class ProfileController extends Controller
@@ -19,6 +22,7 @@ class ProfileController extends Controller
         $user = $request->user()->load(['notification_preferences']);
 
         return view('profile.edit.main')
+            ->with('notification_types', NotificationType::all())
             ->with('user', $user);
     }
 
@@ -48,6 +52,49 @@ class ProfileController extends Controller
 
         if ($old_email !== $data['email']) {
             $user->sendEmailVerificationNotification();
+        }
+
+        return back();
+    }
+
+    /**
+     * Update the specified resource's notification preferences in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateNotificationPreferences(Request $request)
+    {
+        $request->validate([
+            'notification_preferences' => 'required|array',
+            'notification_preferences.*' => 'required|array',
+            'notification_preferences.*.is_active' => 'required|boolean',
+            'notification_preferences.*.type_id' => [
+                'required',
+                'integer',
+                Rule::exists('notification_types', 'id'),
+            ],
+        ]);
+
+        $user = $request->user()->load(['notification_preferences']);
+
+        // Create or update existing notification preferences
+        $notification_preferences_data = $request->get(
+            'notification_preferences'
+        );
+        foreach (NotificationType::all() as $notification_type) {
+            $notification_preference = $user->notification_preferences
+                ->firstWhere('type_id', $notification_type->id);
+            $notification_preference_data = array_merge(
+                $notification_preferences_data[$notification_type->id],
+                ['user_id' => $user->id]
+            );
+            if ($notification_preference === null) {
+                NotificationPreference::create($notification_preference_data);
+                continue;
+            }
+
+            $notification_preference->update($notification_preference_data);
         }
 
         return back();
