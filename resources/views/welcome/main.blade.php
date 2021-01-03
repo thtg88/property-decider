@@ -105,6 +105,21 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="flex justify-center pt-8 sm:hidden">
+                    @auth
+                        <x-buttons.primary-button-link href="{{ route('dashboard') }}">
+                            Dashboard
+                        </x-buttons.primary-button-link>
+                    @else
+                        <x-buttons.primary-button-link href="{{ route('register') }}">
+                            {{ __('Sign up') }}
+                        </x-buttons.primary-button-link>
+                        <x-buttons.secondary-button-link href="{{ route('login') }}" class="ml-2">
+                            {{ __('Login') }}
+                        </x-buttons.secondary-button-link>
+                    @endauth
+                </div>
             </div>
         </div>
     </body>
