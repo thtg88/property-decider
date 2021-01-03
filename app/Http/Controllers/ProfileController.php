@@ -9,6 +9,20 @@ use Illuminate\Validation\ValidationException;
 class ProfileController extends Controller
 {
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\View\View
+     */
+    public function edit(Request $request)
+    {
+        $user = $request->user()->load(['notification_preferences']);
+
+        return view('profile.edit.main')
+            ->with('user', $user);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request

@@ -14,6 +14,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PropertyPreferenceController;
 use App\Http\Controllers\UserGroupController;
+use App\Models\NotificationType;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -73,9 +74,11 @@ Route::group(['middleware' => ['auth']], static function () {
 
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
-    Route::put('me', [ProfileController::class, 'update'])->name('profile.update');
-    Route::post('me/change-password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
-    Route::view('me', 'profile.edit')->name('profile.edit');
+    Route::get('me', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('me', [ProfileController::class, 'update'])
+        ->name('profile.update');
+    Route::post('me/change-password', [ProfileController::class, 'updatePassword'])
+        ->name('profile.update-password');
 
     Route::group(['middleware' => ['verified']], static function () {
         // Property Preference Routes...
