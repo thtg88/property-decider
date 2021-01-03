@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'welcome');
+Route::view('/', 'welcome.main');
 
 Route::group(['middleware' => ['guest']], static function () {
     Route::get('/register', [RegisteredUserController::class, 'create'])
