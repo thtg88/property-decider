@@ -16,15 +16,19 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $user_groups = $request->user()->getUserGroups()->load(['user']);
+        $user = $request->user();
+        $user_groups = $user->getUserGroups()->load(['user']);
 
-        if ($user_groups->count() > 0) {
-            $properties = Property::with(['property_preferences.user'])
-                ->whereIn('user_id', $user_groups->pluck('user_id'))
-                ->get();
-        } else {
-            $properties = new Collection();
-        }
+        $properties = Property::with(['property_preferences.user'])
+            ->when($user_groups->count() > 0, fn ($query) => $query->whereIn(
+                'user_id',
+                $user_groups->pluck('user_id')
+            ))
+            ->when($user_groups->count() === 0, fn ($query) => $query->where(
+                'user_id',
+                $user->id
+            ))
+            ->get();
 
         $voted_property_ids = $properties->pluck('property_preferences')
             ->flatten()
