@@ -75,16 +75,18 @@
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="flex items-center px-4">
-                <div class="flex-shrink-0">
-                </div>
+            <a href="{{ route('profile.edit') }}">
+                <div class="flex items-center px-4">
+                    <div class="flex-shrink-0">
                         <x-icons.user class="h-10 w-10 fill-current text-gray-400" />
+                    </div>
 
-                <div class="ml-3">
-                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                    <div class="ml-3">
+                        <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+                        <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                    </div>
                 </div>
-            </div>
+            </a>
 
             <div class="mt-3 space-y-1">
                 <!-- Authentication -->
