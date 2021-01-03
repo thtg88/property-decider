@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Actions\ProcessProperty\Utils;
+use App\Events\PropertyStored;
 use App\Models\Property;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -72,6 +73,8 @@ class ProcessPropertyUrlJob implements ShouldQueue
             $this->property->update([
                 'status_id' => config('app.statuses.completed_id'),
             ]);
+
+            event(new PropertyStored($this->property));
 
             return;
         }
