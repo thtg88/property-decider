@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -73,6 +74,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     // RELATIONSHIPS
+
+    public function notification_preferences(): HasMany
+    {
+        return $this->hasMany(NotificationPreference::class);
+    }
 
     public function user_group(): HasOne
     {
