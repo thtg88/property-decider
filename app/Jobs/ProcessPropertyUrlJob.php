@@ -31,7 +31,7 @@ class ProcessPropertyUrlJob implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         // If URL differ, we assume it has changed before processing the job
         // and is being dealt with, and return

@@ -16,7 +16,7 @@ class SendCommentStoredNotificationListener
      * @param \App\Events\CommentStored $event
      * @return void
      */
-    public function handle(CommentStored $event)
+    public function handle(CommentStored $event): void
     {
         $comment = $event->getComment();
         $property = $event->getProperty();
@@ -28,7 +28,7 @@ class SendCommentStoredNotificationListener
             ->where('user_id', '<>', $creator->id)
             ->pluck('user')
             ->filter()
-            ->filter(static function (User $recipient) {
+            ->filter(static function (User $recipient): bool {
                 return $recipient->notification_preferences->where(
                     'type_id',
                     config('app.notification_types.new_comment_id')
@@ -38,7 +38,7 @@ class SendCommentStoredNotificationListener
                 $comment,
                 $property,
                 $creator,
-            ) {
+            ): void {
                 $recipient->notify(
                     new CommentStoredNotification($comment, $property, $creator)
                 );

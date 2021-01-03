@@ -12,7 +12,7 @@ class UserGroupPolicy extends Policy
      * @param \App\Models\User $user
      * @return bool
      */
-    public function create(User $user)
+    public function create(User $user): bool
     {
         return true;
     }

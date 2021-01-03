@@ -16,7 +16,7 @@ class SendPropertyStoredNotificationListener
      * @param \App\Events\PropertyStored $event
      * @return void
      */
-    public function handle(PropertyStored $event)
+    public function handle(PropertyStored $event): void
     {
         $property = $event->getProperty();
         $creator = $property->user;
@@ -27,7 +27,7 @@ class SendPropertyStoredNotificationListener
             ->where('user_id', '<>', $creator->id)
             ->pluck('user')
             ->filter()
-            ->filter(static function (User $recipient) {
+            ->filter(static function (User $recipient): bool {
                 return $recipient->notification_preferences->where(
                     'type_id',
                     config('app.notification_types.new_property_id')
