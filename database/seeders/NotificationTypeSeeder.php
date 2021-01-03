@@ -17,20 +17,33 @@ class NotificationTypeSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['title' => 'New Property'],
-            ['title' => 'Property Liked'],
-            ['title' => 'Property Disliked'],
-            ['title' => 'New Comment'],
+            [
+                'title' => 'New Property',
+                'description' => 'A new property has been added',
+            ],
+            [
+                'title' => 'Property Liked',
+                'description' => 'A property within your group has been liked',
+            ],
+            [
+                'title' => 'Property Disliked',
+                'description' => 'A property within your group has been disliked',
+            ],
+            [
+                'title' => 'New Comment',
+                'description' => 'A new comment has been added',
+            ],
         ];
         foreach ($data as $model_data) {
-            $type = NotificationType::firstOrCreate([
-                'title' => $model_data['title'],
-            ]);
+            $type = NotificationType::firstOrCreate(
+                ['title' => $model_data['title']],
+                ['description' => $model_data['description']]
+            );
 
             // Seed notification preferences for users that don't have the given type
             User::whereDoesntHave(
                 'notification_preferences',
-                static function ($query) {
+                static function ($query) use ($type) {
                     $query->where('type_id', $type->id);
                 }
             )->get()->each(fn (User $user) => NotificationPreference::create([

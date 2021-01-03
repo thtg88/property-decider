@@ -16,7 +16,8 @@ class CreateNotificationTypesTable extends Migration
         Schema::create('notification_types', function (Blueprint $table) {
             $table->id();
             $table->string('title')->index();
-            $table->string('content')->nullable();
+            $table->string('description');
+            $table->longText('content')->nullable();
             $table->timestamps();
         });
     }

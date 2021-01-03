@@ -3,6 +3,8 @@
 namespace App\Models;
 
 /**
+ * @property int $id
+ * @property int $description
  * @property int $title
  */
 class NotificationType extends Model
@@ -13,6 +15,7 @@ class NotificationType extends Model
      * @var array
      */
     protected $fillable = [
+        'description',
         'title',
     ];
 }
