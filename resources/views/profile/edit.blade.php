@@ -41,7 +41,10 @@
                     required
                 />
                 <x-help-text>
-                    {{ __('If you change this, we will send you an email asking you to verify your address again.') }}
+                    {{ __(
+                        'If you change this, we will send you an email '.
+                        'asking you to verify your new address.'
+                    ) }}
                 </x-help-text>
                 @error('email')
                     <x-invalid-field>{{ $message }}</x-invalid-field>

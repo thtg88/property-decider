@@ -23,7 +23,7 @@
             <x-card-title>{{ __('New Properties') }}</x-card-title>
 
             <p class="mt-2">
-                You have not expressed your preference to these property,
+                You have not expressed your preference to these properties,
                 have a look at them below,
                 and let your group know what you think!
             </p>
