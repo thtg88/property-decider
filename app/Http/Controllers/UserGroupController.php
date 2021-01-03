@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\NotificationPreferenceHelper;
 use App\Helpers\UserGroupHelper;
 use App\Models\User;
 use App\Models\UserGroup;
@@ -14,11 +15,15 @@ class UserGroupController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
+     * @param \App\Helpers\NotificationPreferenceHelper $notification_preference_helper
      * @param \App\Helpers\UserGroupHelper $helper
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, UserGroupHelper $helper)
-    {
+    public function store(
+        Request $request,
+        NotificationPreferenceHelper $notification_preference_helper,
+        UserGroupHelper $helper
+    ) {
         $current_user = $request->user();
 
         if (! $current_user->can('create', UserGroup::class)) {
@@ -37,6 +42,8 @@ class UserGroupController extends Controller
             // Create a strong random password for the user to start with
             'password' => Str::random(30),
         ]);
+
+        $notification_preference_helper->createAll($user);
 
         $helper->invite($user, $current_user);
 
