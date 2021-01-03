@@ -246,4 +246,18 @@ return [
         'queued_id' => (int) env('PROPERTY_STATUS_QUEUED_ID', 1),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Notification Types
+    |--------------------------------------------------------------------------
+    |
+    | These variables keep track of the notification types,
+    | for usage across the app.
+    |
+    */
+
+    'notification_types' => [
+        'new_property_id' => (int) env('NOTIFICATION_TYPE_NEW_PROPERTY_ID', 1),
+    ],
+
 ];
