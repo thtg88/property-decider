@@ -27,7 +27,7 @@ class RegisteredUserController extends Controller
      * Handle an incoming registration request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Helper\NotificationPreferenceHelper $notification_preference_helper
+     * @param \App\Helpers\NotificationPreferenceHelper $notification_preference_helper
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
