@@ -68,7 +68,7 @@ class ZooplaAction extends ProviderAction implements RespondsToProviderUrlInterf
             return [];
         }
 
-        return $amenities_crawler->each(function (Crawler $node) {
+        return $amenities_crawler->each(function (Crawler $node): string {
             return Str::limit($node->text(), 255);
         });
     }
