@@ -10,7 +10,8 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class RightmoveAction extends ProviderAction implements RespondsToProviderUrlInterface
 {
-    const PROVIDER_NAME = 'Rightmove';
+    /** @var string */
+    public const PROVIDER_NAME = 'Rightmove';
 
     protected Crawler $crawler;
 

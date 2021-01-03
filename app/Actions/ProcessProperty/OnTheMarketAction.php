@@ -10,7 +10,8 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class OnTheMarketAction extends ProviderAction implements RespondsToProviderUrlInterface
 {
-    const PROVIDER_NAME = 'OnTheMarket';
+    /** @var string */
+    public const PROVIDER_NAME = 'OnTheMarket';
 
     protected Crawler $crawler;
 

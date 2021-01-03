@@ -28,10 +28,9 @@ class PropertyStoredNotification extends Notification implements ShouldQueue
     /**
      * Get the notification's delivery channels.
      *
-     * @param mixed $notifiable
      * @return array
      */
-    public function via($notifiable)
+    public function via(): array
     {
         return ['mail'];
     }
@@ -55,10 +54,7 @@ class PropertyStoredNotification extends Notification implements ShouldQueue
                 'View On Website',
                 route('properties.show', $this->property)
             )
-            ->line(
-                'You can let your group know what you think, '.
-                'by leaving a preference or a comment'
-            )
+            ->line('You can let your group know what you think, by leaving a preference or a comment.')
             ->salutation('Regards,');
     }
 }

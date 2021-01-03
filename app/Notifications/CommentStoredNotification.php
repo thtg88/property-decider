@@ -31,10 +31,9 @@ class CommentStoredNotification extends Notification implements ShouldQueue
     /**
      * Get the notification's delivery channels.
      *
-     * @param mixed $notifiable
      * @return array
      */
-    public function via($notifiable)
+    public function via(): array
     {
         return ['mail'];
     }

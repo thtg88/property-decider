@@ -10,7 +10,8 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class ZooplaAction extends ProviderAction implements RespondsToProviderUrlInterface
 {
-    const PROVIDER_NAME = 'Zoopla';
+    /** @var string */
+    public const PROVIDER_NAME = 'Zoopla';
 
     protected Crawler $crawler;
 
