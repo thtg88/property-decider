@@ -14,7 +14,7 @@ class PropertyPreferencePolicy extends Policy
      * @param \Illuminate\Database\Eloquent\Model $model
      * @return bool
      */
-    public function delete(User $user, Model $model)
+    public function delete(User $user, Model $model): bool
     {
         // If I've added the preference
         return $user->id === $model->user_id;

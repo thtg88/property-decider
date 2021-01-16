@@ -4,6 +4,7 @@ namespace App\Actions\ProcessProperty;
 
 final class Utils
 {
+    /** @var string[] */
     public const PROVIDER_ACTIONS = [
         OnTheMarketAction::class,
         RightmoveAction::class,

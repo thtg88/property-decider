@@ -10,7 +10,8 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class ZooplaAction extends ProviderAction implements RespondsToProviderUrlInterface
 {
-    const PROVIDER_NAME = 'Zoopla';
+    /** @var string */
+    public const PROVIDER_NAME = 'Zoopla';
 
     protected Crawler $crawler;
 
@@ -67,7 +68,7 @@ class ZooplaAction extends ProviderAction implements RespondsToProviderUrlInterf
             return [];
         }
 
-        return $amenities_crawler->each(function (Crawler $node) {
+        return $amenities_crawler->each(function (Crawler $node): string {
             return Str::limit($node->text(), 255);
         });
     }

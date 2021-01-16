@@ -13,7 +13,7 @@ class PropertyPolicy extends Policy
      * @param \App\Models\User $user
      * @return bool
      */
-    public function create(User $user)
+    public function create(User $user): bool
     {
         return true;
     }
@@ -25,7 +25,7 @@ class PropertyPolicy extends Policy
      * @param \Illuminate\Database\Eloquent\Model $model
      * @return bool
      */
-    public function createComment(User $user, Model $model)
+    public function createComment(User $user, Model $model): bool
     {
         return $this->isOwnerOrOwnerGroupMember($user, $model);
     }
@@ -37,7 +37,7 @@ class PropertyPolicy extends Policy
      * @param \Illuminate\Database\Eloquent\Model $model
      * @return bool
      */
-    public function delete(User $user, Model $model)
+    public function delete(User $user, Model $model): bool
     {
         return $this->isOwnerOrOwnerGroupMember($user, $model);
     }
@@ -49,7 +49,7 @@ class PropertyPolicy extends Policy
      * @param \Illuminate\Database\Eloquent\Model $model
      * @return bool
      */
-    public function dislike(User $user, Model $model)
+    public function dislike(User $user, Model $model): bool
     {
         return $this->isOwnerOrOwnerGroupMember($user, $model);
     }
@@ -61,7 +61,7 @@ class PropertyPolicy extends Policy
      * @param \Illuminate\Database\Eloquent\Model $model
      * @return bool
      */
-    public function like(User $user, Model $model)
+    public function like(User $user, Model $model): bool
     {
         return $this->isOwnerOrOwnerGroupMember($user, $model);
     }
@@ -73,7 +73,7 @@ class PropertyPolicy extends Policy
      * @param \Illuminate\Database\Eloquent\Model $model
      * @return bool
      */
-    public function reprocess(User $user, Model $model)
+    public function reprocess(User $user, Model $model): bool
     {
         return $this->isOwnerOrOwnerGroupMember($user, $model);
     }
@@ -85,7 +85,7 @@ class PropertyPolicy extends Policy
      * @param \Illuminate\Database\Eloquent\Model $model
      * @return bool
      */
-    public function view(User $user, Model $model)
+    public function view(User $user, Model $model): bool
     {
         return $this->isOwnerOrOwnerGroupMember($user, $model);
     }

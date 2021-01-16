@@ -16,7 +16,10 @@ use Illuminate\Support\Facades\Http;
 
 class ProcessPropertyUrlJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     public function __construct(
         protected Property $property,
@@ -28,7 +31,7 @@ class ProcessPropertyUrlJob implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         // If URL differ, we assume it has changed before processing the job
         // and is being dealt with, and return

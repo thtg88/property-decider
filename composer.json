@@ -31,6 +31,7 @@
         "nunomaduro/larastan": "^0.6.11",
         "phpunit/phpunit": "^9.3.3",
         "psalm/plugin-laravel": "^1.4",
+        "rector/rector": "^0.9.4",
         "thtg88/laravel-db-scaffold-commands": "^0.1.0",
         "thtg88/laravel-scaffold-commands": "^0.3.0",
         "tightenco/tlint": "^5.0",
@@ -84,7 +85,8 @@
         "fix-style": "vendor/bin/php-cs-fixer fix --using-cache=no",
         "stan": [
             "vendor/bin/phpstan analyse --memory-limit=512M",
-            "vendor/bin/psalm --no-cache"
+            "vendor/bin/psalm --no-cache",
+            "vendor/bin/rector process app --dry-run"
         ],
         "test": "vendor/bin/phpunit"
     }

@@ -10,7 +10,8 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class RightmoveAction extends ProviderAction implements RespondsToProviderUrlInterface
 {
-    const PROVIDER_NAME = 'Rightmove';
+    /** @var string */
+    public const PROVIDER_NAME = 'Rightmove';
 
     protected Crawler $crawler;
 
@@ -67,7 +68,7 @@ class RightmoveAction extends ProviderAction implements RespondsToProviderUrlInt
             return [];
         }
 
-        return $amenities_crawler->each(function (Crawler $node) {
+        return $amenities_crawler->each(function (Crawler $node): string {
             return Str::limit($node->text(), 255);
         });
     }
