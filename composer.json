@@ -78,6 +78,11 @@
         ],
         "post-install-cmd": "[[ -d .git ]] && vendor/bin/cghooks add --no-lock || true",
         "post-update-cmd": "[[ -d .git ]] && vendor/bin/cghooks update || true",
+        "ci": [
+            "@check-style",
+            "@stan",
+            "@test --stop-on-failure"
+        ],
         "check-style": [
             "vendor/bin/tlint lint resources/views"
         ],
