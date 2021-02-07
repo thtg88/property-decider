@@ -91,6 +91,6 @@
             "vendor/bin/phpstan analyse --memory-limit=512M",
             "vendor/bin/psalm --no-cache"
         ],
-        "test": "vendor/bin/phpunit"
+        "test": "@php artisan test"
     }
 }
