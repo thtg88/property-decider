@@ -29,7 +29,6 @@
         "laravel/breeze": "^1.0",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
-        "nunomaduro/larastan": "^0.7",
         "phpunit/phpunit": "^9.3.3",
         "psalm/plugin-laravel": "^1.4",
         "thtg88/laravel-db-scaffold-commands": "^0.1.0",
@@ -88,10 +87,7 @@
             "vendor/bin/tlint lint resources/views"
         ],
         "fix-style": "vendor/bin/php-cs-fixer fix --using-cache=no",
-        "stan": [
-            "vendor/bin/phpstan analyse --memory-limit=512M",
-            "vendor/bin/psalm --no-cache"
-        ],
+        "stan": "vendor/bin/psalm --no-cache",
         "test": "@php artisan test --parallel --recreate-databases"
     }
 }
