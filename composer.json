@@ -92,6 +92,6 @@
             "vendor/bin/phpstan analyse --memory-limit=512M",
             "vendor/bin/psalm --no-cache"
         ],
-        "test": "@php artisan test"
+        "test": "@php artisan test --parallel --recreate-databases"
     }
 }
