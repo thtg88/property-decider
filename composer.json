@@ -22,6 +22,7 @@
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
         "brainmaestro/composer-git-hooks": "^2.8",
+        "brianium/paratest": "^6.2",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "friendsofphp/php-cs-fixer": "^2.17",
@@ -78,6 +79,11 @@
         ],
         "post-install-cmd": "[[ -d .git ]] && vendor/bin/cghooks add --no-lock || true",
         "post-update-cmd": "[[ -d .git ]] && vendor/bin/cghooks update || true",
+        "ci": [
+            "@check-style",
+            "@stan",
+            "@test --stop-on-failure"
+        ],
         "check-style": [
             "vendor/bin/tlint lint resources/views"
         ],
@@ -86,6 +92,6 @@
             "vendor/bin/phpstan analyse --memory-limit=512M",
             "vendor/bin/psalm --no-cache"
         ],
-        "test": "vendor/bin/phpunit"
+        "test": "@php artisan test --parallel --recreate-databases"
     }
 }
