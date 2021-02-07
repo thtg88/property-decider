@@ -87,10 +87,7 @@
             "vendor/bin/tlint lint resources/views"
         ],
         "fix-style": "vendor/bin/php-cs-fixer fix --using-cache=no",
-        "stan": [
-            "vendor/bin/phpstan analyse --memory-limit=512M",
-            "vendor/bin/psalm --no-cache"
-        ],
+        "stan": "vendor/bin/psalm --no-cache",
         "test": "@php artisan test --parallel --recreate-databases"
     }
 }
