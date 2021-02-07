@@ -29,7 +29,6 @@
         "laravel/breeze": "^1.0",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
-        "nunomaduro/larastan": "^0.7",
         "phpunit/phpunit": "^9.3.3",
         "psalm/plugin-laravel": "^1.4",
         "thtg88/laravel-db-scaffold-commands": "^0.1.0",
