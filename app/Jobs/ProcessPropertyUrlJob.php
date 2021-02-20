@@ -21,7 +21,8 @@ class ProcessPropertyUrlJob implements ShouldQueue
     public function __construct(
         protected Property $property,
         protected string $url,
-    ) {}
+    ) {
+    }
 
     /**
      * Execute the job.

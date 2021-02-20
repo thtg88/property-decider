@@ -19,7 +19,8 @@ class CommentStored
      * @return void
      */
     public function __construct(protected Comment $comment)
-    {}
+    {
+    }
 
     public function getComment(): Comment
     {

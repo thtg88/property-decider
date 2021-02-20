@@ -20,7 +20,8 @@ class InviteUserNotification extends Notification implements ShouldQueue
     public function __construct(
         protected string $token,
         protected UserGroup $user_group,
-    ) {}
+    ) {
+    }
 
     /**
      * Get the notification's delivery channels.

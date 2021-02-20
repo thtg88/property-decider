@@ -76,7 +76,7 @@ class SuccessfulTest extends TestCase
             $user->getGroup()->id
         );
 
-        foreach($data as $key => $value) {
+        foreach ($data as $key => $value) {
             $this->assertEquals($user->$key, $value);
         }
 
