@@ -79,6 +79,12 @@
         ],
         "post-install-cmd": "[[ -d .git ]] && vendor/bin/cghooks add --no-lock || true",
         "post-update-cmd": "[[ -d .git ]] && vendor/bin/cghooks update || true",
+        "optimize-laravel-cmd": [
+            "@php artisan event:cache",
+            "@php artisan view:cache",
+            "@php artisan config:cache",
+            "@php artisan route:cache"
+        ],
         "ci": [
             "@check-style",
             "@stan",
