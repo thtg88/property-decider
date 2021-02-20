@@ -26,7 +26,8 @@ class CommentStoredNotification extends Notification implements ShouldQueue
         protected Comment $comment,
         protected Property $property,
         protected User $creator,
-    ) {}
+    ) {
+    }
 
     /**
      * Get the notification's delivery channels.

@@ -22,7 +22,8 @@ class PropertyStored
      * @return void
      */
     public function __construct(protected Property $property)
-    {}
+    {
+    }
 
     public function getProperty(): Property
     {

@@ -23,7 +23,8 @@ class PropertyStoredNotification extends Notification implements ShouldQueue
     public function __construct(
         protected Property $property,
         protected User $creator
-    ) {}
+    ) {
+    }
 
     /**
      * Get the notification's delivery channels.
