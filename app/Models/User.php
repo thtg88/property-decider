@@ -7,13 +7,14 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 
 /**
  * @property int $id
+ * @property string $name
+ * @property \Illuminate\Support\Carbon $email_verified_at
  */
 class User extends Authenticatable implements MustVerifyEmail
 {

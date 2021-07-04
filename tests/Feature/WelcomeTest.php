@@ -17,6 +17,7 @@ class WelcomeTest extends TestCase
     /** @test */
     public function successful_authenticated(): void
     {
+        /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get($this->getRoute());
         $response->assertStatus(200)

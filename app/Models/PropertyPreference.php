@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property bool $is_liked
+ */
 class PropertyPreference extends Model
 {
     /**
